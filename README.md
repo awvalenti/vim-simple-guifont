@@ -3,11 +3,11 @@ The simple and portable way to `set guifont` on GVim.
 
 ## Without it 🙁
 ```vim
-if has('gui_win32') || has('gui_win64') || has('gui_macvim') " Windows, Mac
+if has('gui_win32') || has('gui_win64') || has('gui_macvim')
   " Complicated syntax; repetition of size (many places to change if needed)
   set guifont=Cascadia\ Code\ PL:h14,JetBrains\ Mono:h14,Hack:h14,Consolas:h14
 
-elseif has('gui_gtk') " Linux
+elseif has('gui_gtk')
   " Different syntax; no support for alternatives; messes up if not found
   set guifont=Consolas\ 14
 endif
@@ -44,7 +44,7 @@ For Windows and Mac, it builds a string and sets it.
 For Linux with GTK, much more is done: shell programs are called to get
 a list of all installed fonts, then the best match is searched.
 If one is not found, the fallback font is chosen.
-To learn more, just browse the [source code](autolad/simple_guifont.vim).
+To learn more, just browse the [source code](autoload/simple_guifont.vim).
 
 ## Development
 Contributions are welcome! Especially:
