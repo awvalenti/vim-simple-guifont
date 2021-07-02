@@ -1,59 +1,100 @@
 # vim-simple-guifont
 The simple and portable way to `set guifont` on GVim.
 
-## Without it 🙁
+## 🙁 Before
 ```vim
 if has('gui_win32') || has('gui_win64') || has('gui_macvim')
-  " Complicated syntax; repetition of size (many places to change if needed)
-  set guifont=Cascadia\ Code\ PL:h14,JetBrains\ Mono:h14,Hack:h14,Consolas:h14
+  " Complicated syntax and repetition of size
+  set guifont=Cascadia\ Code\ PL\:h14,JetBrains\ Mono\:h14,Hack\:h14,Consolas\:h14
 
-elseif has('gui_gtk')
-  " Different syntax; no support for alternatives; messes up if not found
+elseif has('gui_gtk') " Linux
+  " Another syntax and cannot specify more than one
   set guifont=Consolas\ 14
 endif
 ```
 
-## With it 😍
+## 😍 After
 ```vim
 silent! call simple_guifont#Set(
   \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
 ```
 
-## Usage
-Add the following to you `vimrc`
-(using [vim-plug](https://github.com/junegunn/vim-plug) in this example):
+## Installation
+If using [vim-plug](https://github.com/junegunn/vim-plug), add the following to your `vimrc` or `gvimrc`:
 ```vim
 call plug#begin()
 " ...
 Plug 'awvalenti/vim-simple-guifont'
 " ...
 call plug#end()
-
-" function! simple_guifont#Set(preferred_fonts, fallback_font, size)
-silent! call simple_guifont#Set(
-  \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
 ```
-- `silent!` is optional. You can add it to avoid an error before the plugin
-is installed. You can omit it to see all errors in case they occur.
-- `preferred_fonts` is a list of font families, from most to least preferred.
-- `fallback_font` is separated because it is handled differently on Linux.
-  It will be chosen if none of the prefereed ones are found. You can
-  use a '*' fallback to prompt user for a font.
-- `size` is usually 10, 12, 14, 16.
 
+For other plugin managers, please check their documentation,
+or take a look at
+[Vim 8's native plugin system](https://duckduckgo.com/?t=ffab&q=vim+native+plugin+management&ia=web).
 
-## Saying thank you
-If you find this plugin useful, please leave this repository a star
-[up there](#top) ⭐!
+## Usage
+Just call this function:
+```vim
+simple_guifont#Set(preferred_fonts, fallback_font, size)
+```
+
+### Samples
+- Typical usage, on `vimrc`
+  ```vim
+  " This check avoids loading plugin when Vim is running on terminal
+  if has('gui_running')
+    silent! call simple_guifont#Set(
+      \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
+  endif
+  ```
+
+- Typical usage, on `gvimrc`
+  ```vim
+  " No need to check, we're on GVim
+  silent! call simple_guifont#Set(
+    \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
+  ```
+
+- Debugging: `silent!` avoids throwing errors. It is useful when the plugin
+  is not yet installed, avoiding prematurely ending your `vimrc`/`gvimrc`.
+  If you ommit `silent!`, any errors will be explicit.
+  ```vim
+  call simple_guifont#Set(
+    \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
+  ```
+
+- Single font
+  ```vim
+  silent! call simple_guifont#Set([], 'Fira Code Medium', 16)
+  ```
+
+- Try one; if not available, ask user to pick another one (by using `'*'`)
+  ```vim
+  silent! call simple_guifont#Set(['Monospace'], '*', 12)
+  ```
+
+## Appreciation
+If you find this plugin useful, please [leave me a star up there ⭐](#top)!
 
 ## Internals
 Operating system is detected and the appropriate measures are taken.
-For Windows and Mac, a string is created and set as `guifont`.
+
+For Windows, it suffices to create a single string and set `guifont`.
+
+Mac follows the same syntax, but it is uncertain whether it supports
+a list of fonts like Windows does.
+
 For Linux with GTK, much more is done: shell programs are called to get
-a list of all installed fonts, then the best match is searched.
-If one is not found, the fallback font is chosen.
+a list of all installed fonts, then a search for the best match is done.
+If no match is found, fallback font is chosen, without searching for
+availability.
+
 To learn more, just browse the [source code](autoload/simple_guifont.vim).
 
-## Development
-Contributions are welcome! Especially testing on Mac, but also any other
-improvements.
+## TODO
+Contributions are welcome! Main next steps are:
+- Support for Mac (may or may not work, hasn't been tested yet)
+- Support other platforms
+- Support for Windows font options, like `Andale_Mono:h7:cANSI:qANTIALIASED`
+
