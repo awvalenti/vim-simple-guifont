@@ -38,6 +38,9 @@ silent! call simple_guifont#Set(
 )
 ```
 
+## Saying thank you
+If this plugin is useful to you, please leave me a star ⭐!
+
 ## Internals
 The operating system is detected and the appropriate strategy is chosen.
 For Windows and Mac, it builds a string and sets it.
@@ -47,7 +50,5 @@ If one is not found, the fallback font is chosen.
 To learn more, just browse the [source code](autoload/simple_guifont.vim).
 
 ## Development
-Contributions are welcome! Especially:
-- Testing on Mac
-- Advice on good practices for Vim plugins
-
+Contributions are welcome! Especially testing on Mac, but also any other
+improvements.
