@@ -23,7 +23,7 @@ function! s:MakeGuifontString(desired_fonts, fallback_font, size)
   if has('gui_win32') || has('gui_win64') || has('gui_macvim')
     return a:desired_fonts
           \->add(a:fallback_font)
-          \->map(v:val .. ':h' .. a:size)
+          \->map({ family -> family .. ':h' .. a:size })
           \->join(',')
   elseif has('gui_gtk')
     return s:GtkGetSystemFonts()
