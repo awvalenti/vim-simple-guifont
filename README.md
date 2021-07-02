@@ -16,7 +16,7 @@ endif
 ## With it 😍
 ```vim
 silent! call simple_guifont#Set(
-  ['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
+  \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
 ```
 
 ## Usage
@@ -32,9 +32,9 @@ call plug#end()
 " 'silent!' is optional. It avoids an error before the plugin is installed.
 " You can omit it to show any error that occurs.
 silent! call simple_guifont#Set(
-  ['Cascadia Code PL', 'JetBrains Mono', 'Hack'], " From most to least preferred
-  'Consolas', " Last option if all above fail. '*' opens a window to ask user.
-  14 " Font size
+  \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], " From most to least preferred
+  \'Consolas', " Last option if all above fail. '*' opens a window to ask user.
+  \14 " Font size
 )
 ```
 
