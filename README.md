@@ -29,21 +29,26 @@ Plug 'awvalenti/vim-simple-guifont'
 " ...
 call plug#end()
 
-" 'silent!' is optional. It avoids an error before the plugin is installed.
-" You can omit it to show any error that occurs.
+" function! simple_guifont#Set(preferred_fonts, fallback_font, size)
 silent! call simple_guifont#Set(
-  \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], " From most to least preferred
-  \'Consolas', " Last option if all above fail. '*' opens a window to ask user.
-  \14 " Font size
-)
+  \['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
 ```
+- `silent!` is optional. You can add it to avoid an error before the plugin
+is installed. You can omit it to see all errors in case they occur.
+- `preferred_fonts` is a list of font families, from most to least preferred.
+- `fallback_font` is separated because it is handled differently on Linux.
+  It will be chosen if none of the prefereed ones are found. You can
+  use a '*' fallback to prompt user for a font.
+- `size` is usually 10, 12, 14, 16.
+
 
 ## Saying thank you
-If this plugin is useful to you, please leave me a star ⭐!
+If you find this plugin useful, please leave this repository a star
+[up there](#top) ⭐!
 
 ## Internals
-The operating system is detected and the appropriate strategy is chosen.
-For Windows and Mac, it builds a string and sets it.
+Operating system is detected and the appropriate measures are taken.
+For Windows and Mac, a string is created and set as `guifont`.
 For Linux with GTK, much more is done: shell programs are called to get
 a list of all installed fonts, then the best match is searched.
 If one is not found, the fallback font is chosen.
