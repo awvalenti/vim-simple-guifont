@@ -1,7 +1,7 @@
 scriptversion 4
 
 if exists("simple_guifont#loaded") || !has('gui_running')
-	finish
+  finish
 endif
 let simple_guifont#loaded = v:true
 
