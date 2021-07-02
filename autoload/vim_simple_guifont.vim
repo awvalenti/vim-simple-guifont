@@ -33,5 +33,7 @@ function! s:MakeGuifontString(desired_fonts, fallback_font, size)
   endif
 endfunction
 
-let &guifont = s:MakeGuifontString(['dejavu sans mon', 'oto mono', 'monospac'], 'mono', 14)
+function! vim_simple_guifont#Run(desired_fonts, fallback_font, size)
+  let &guifont = s:MakeGuifontString(a:desired_fonts, a:fallback_font, a:size)
+endfunction
 
