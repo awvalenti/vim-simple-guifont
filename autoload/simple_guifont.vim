@@ -16,10 +16,9 @@ function! s:MakeGuifontString(preferred_fonts, fallback_font, size)
           \->map({ _, family -> family == '*' ? '*' : family .. ':h' .. a:size })
           \->join(',')
   elseif has('gui_gtk')
-    return s:GtkGetSystemFonts()
+    let f:chosen_font = s:GtkGetSystemFonts()
           \->s:GtkFindBestFont(a:preferred_fonts, a:fallback_font)
-          \.. ' '
-          \.. a:size
+    return f:chosen_font == '*' ? '*' : f:chosen_font .. ' ' .. a:size
   endif
 endfunction
 
