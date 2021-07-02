@@ -16,10 +16,7 @@ endif
 ## With it 😍
 ```vim
 silent! call simple_guifont#Set(
-  ['Cascadia Code PL', 'JetBrains Mono', 'Hack'], " Your preferred fonts
-                                      'Consolas', " A fallback
-                                              14  " Font size
-)
+  ['Cascadia Code PL', 'JetBrains Mono', 'Hack'], 'Consolas', 14)
 ```
 
 ## Usage
@@ -42,12 +39,12 @@ silent! call simple_guifont#Set(
 ```
 
 ## Internals
-`vim-simple-guifont` first detects your OS, then uses the
-appropriate strategy. For Windows and Mac, it just builds a string like
-the one from #without-it-. For Linux with GTK, it calls some shell
-programs to get a list of all installed fonts and then finds
-the best match. If it cannot find a match, it chooses the fallback font.
-To learn more, just browse the [source code](blob/main/autolad/simple_guifont.vim).
+The operating system is detected and the appropriate strategy is chosen.
+For Windows and Mac, it builds a string and sets it.
+For Linux with GTK, much more is done: shell programs are called to get
+a list of all installed fonts, then the best match is searched.
+If one is not found, the fallback font is chosen.
+To learn more, just browse the [source code](autolad/simple_guifont.vim).
 
 ## Development
 Contributions are welcome! Especially:
