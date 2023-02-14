@@ -29,8 +29,8 @@ function! s:GtkGetSystemFonts()
 endfunction
 
 function! s:GtkFindBestFont(system_fonts, preferred_fonts, fallback_font)
-  for system_font in a:system_fonts
-    for preferred_font in a:preferred_fonts
+  for preferred_font in a:preferred_fonts
+    for system_font in a:system_fonts
       if preferred_font ==? system_font
         return preferred_font
       endif
